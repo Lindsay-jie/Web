@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .wrap {
+            position: relative;
+            width: 800px;
+            height: 450px;
+            margin: 100px auto;
+        }
+
+        .wrap .img-list {
+            width: 100%;
+            height: 100%;
+        }
+
+        .wrap .img-list img {
+            position: absolute;
+            width: 100%;
+            opacity: 0;
+            cursor: pointer;
+            transition-duration: 0.5s;
+        }
+
+        .left,
+        .right {
+            position: absolute;
+            width: 40px;
+            height: 60px;
+            top: 50%;
+            margin-top: -30px;
+            font-size: 40px;
+            line-height: 60px;
+            text-align: center;
+            cursor: pointer;
+            color: #fff;
+            background-color: rgba(204, 204, 204, 0.425);
+        }
+
+        .left {
+            left: 0;
+        }
+
+        .right {
+            right: 0;
+        }
+
+        .circle {
+            position: absolute;
+            text-align: center;
+            left: 50%;
+            margin-left: -50px;
+            bottom: 10px;
+            width: 100px;
+            height: 20px;
+        }
+
+        .circle li {
+            float: left;
+            list-style: none;
+            width: 8px;
+            height: 8px;
+            line-height: 8px;
+            margin: 5px;
+            border-radius: 50%;
+            background-color: #fff;
+            cursor: pointer;
+        }
+
+        .circle .active {
+            background-color: pink;
+        }
+
+        .wrap .img-list img.on {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <!-- 图片列表 -->
+        <div class="img-list">
+            <img src="./images/s1.jpg" alt="" class="on">
+            <img src="./images/s2.jpg" alt="">
+            <img src="./images/s3.jpg" alt="">
+            <img src="./images/s4.jpg" alt="">
+            <img src="./images/s5.jpg" alt="">
+        </div>
+
+        <!-- 左右两个按钮 -->
+        <div class="left"><</div>
+        <div class="right">></div>
+        <!-- 小圆点 -->
+        <ul class="circle">
+            <li class="active"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+
+    <!-- JS -->
+    <script>
+        // 1.获取元素
+        var imgs = document.querySelectorAll('.img-list img');
+        var btnLeft = document.querySelector('.left');
+        var bntRight = document.querySelector('.right');
+        var Lis = document.querySelectorAll('.circle li');
+        console.log(imgs);
+
+        // 2.点击左右两个按钮切换图片
+        var index = 0;//当前图片的下标
+        var lastIndex = 0;//上一张图片的下标
+        bntRight.addEventListener('click', function () {
+            // 记录上一张图片的下标
+            lastIndex = index;
+            //清除上一张图片的样式
+            imgs[lastIndex].className = '';
+            Lis[lastIndex].className = '';
+            //下一张图片
+            index++;
+            index = index % imgs.length;
+
+            imgs[index].className = 'on';
+            Lis[index].className = 'active';
+            
+        });
+        btnLeft.addEventListener('click', function () {
+            // 记录上一张图片的下标
+            lastIndex = index;
+            //清除上一张图片的样式
+            imgs[lastIndex].className = '';
+            Lis[lastIndex].className = '';
+            //下一张图片
+            index--;
+            index = index >= 0 ? index : imgs.length - 1;
+            Lis[index].className = 'active';
+            imgs[index].className = 'on';
+        });
+
+    </script>
+</body>
+
+</html>
